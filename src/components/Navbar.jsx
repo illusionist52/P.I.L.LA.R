@@ -1,21 +1,19 @@
-import React from "react";
-
 const Navbar = () => {
   return (
-    <div className="flex justify-between items-center mx-5 mt-3">
-      <div className="text-3xl">LOGO</div>
+    <div className="flex justify-between items-center p-5 shadow-2xl">
+      <div className="text-3xl ">LOGO</div>
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="2.5"
+          strokeWidth={2.5}
           stroke="currentColor"
-          class="w-8 h-8"
+          className="w-6 h-6"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
           />
         </svg>
