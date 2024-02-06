@@ -2,7 +2,7 @@ import Hero from '@/components/Hero'
 import Navbar from '@/components/Navbar'
 import React from 'react'
 
-function Home() {
+function HomePage() {
   return (
     <div>
       <Navbar/>
@@ -11,4 +11,4 @@ function Home() {
   )
 }
 
-export default Home
+export default HomePage
