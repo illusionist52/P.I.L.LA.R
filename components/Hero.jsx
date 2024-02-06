@@ -16,7 +16,7 @@ const Hero = () => {
       {/* LIST ITEMS */}
       <div className="flex justify-start flex-col  items-center">
         <div>
-          <ul className="flex flex-col justify-center items-center gap-3">
+          <ul className="flex flex-col justify-center items-start gap-6">
             <li className="flex justify-center items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
