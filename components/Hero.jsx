@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="mx-5 flex flex-col justify-center items-center">
+    <div className="mx-5 flex flex-col justify-center items-center mt-20 md:mt-32">
       {/* CTA */}
       <span className="bg-cyan-100 text-slate-600 rounded-full py-2 px-4 text-center font-semibold">
         Review your Contracts 3X faster
@@ -14,7 +14,7 @@ const Hero = () => {
       </h1>
 
       {/* LIST ITEMS */}
-      <div className="flex justify-start flex-col  items-center">
+      <div className="flex justify-start flex-col items-start">
         <div>
           <ul className="flex flex-col justify-center items-start gap-6">
             <li className="flex justify-center items-center">
