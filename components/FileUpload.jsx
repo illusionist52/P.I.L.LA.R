@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
@@ -12,23 +12,26 @@ const FileUpload = () => {
   const handleUpload = async () => {
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
 
-      const response = await fetch('http://127.0.0.1:5000/upload', {
-        method: 'POST',
-        body: formData
+      console.log("FORMDATA - ", formData);
+      console.log("FILE - ", file);
+
+      const response = await fetch("http://127.0.0.1:5000/upload", {
+        method: "POST",
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to upload file');
+        throw new Error("Failed to upload file");
       }
 
-      alert('File uploaded successfully');
-      const output= await response.json()
-      console.log(output)
+      alert("File uploaded successfully");
+      const output = await response.json();
+      console.log(output);
     } catch (error) {
-      console.error('Error uploading file:', error);
-      alert('Error uploading file');
+      console.error("Error uploading file:", error);
+      alert("Error uploading file");
     }
   };
 

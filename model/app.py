@@ -1,10 +1,11 @@
+import os
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts.prompt import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-from PyPDF2 import PdfReader
+# from PyPDF2 import PdfReader
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import fitz
@@ -18,6 +19,12 @@ def get_pdf_text(file):
         text += page.get_text()
     return text
 
+# def get_pdf_text(pdf_docs):
+#     text=""
+#     pdf_reader= PdfReader(pdf_docs)
+#     for page in pdf_reader.pages:
+#         text+= page.extract_text()
+#     return  text
 
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=1000)
@@ -25,6 +32,7 @@ def get_text_chunks(text):
     return chunks
 
 def get_vector_store(text_chunks):
+    google_api_key = os.getenv("NEXT_PUBLIC_GOOGLE_API_KEY")
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key="AIzaSyBQ3E2hbjxuM45LFsRTmIplYJAcC1Qmk9w")
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index.pickle")
@@ -34,7 +42,7 @@ def get_conversational_chain():
 
     prompt_template = """
     Answer the question as detailed as possible from the provided context, make sure to provide all the details, if the answer is not in
-    provided context just say, "i couldn't find an answer to your question in the agreement ", don't provide the wrong answer\n\n
+    provided context just say, "I couldn't find an answer to your question in the agreement ", don't provide the wrong answer\n\n
     Context:\n {context}?\n
     Question: \n{question}\n
 
@@ -47,6 +55,7 @@ def get_conversational_chain():
     prompt = PromptTemplate(template = prompt_template, input_variables = ["context", "question"])
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
     return chain
+
 
 def questionanswered(user_question):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001",google_api_key="AIzaSyBQ3E2hbjxuM45LFsRTmIplYJAcC1Qmk9w")
@@ -77,7 +86,9 @@ def upload_file():
     if file.filename == '':
         return 'No selected file'
 
-    print(file)
+    print("FILE - ", file)
+    print("FILENAME - ", file.filename)
+
     text = get_pdf_text(file.filename)
     chunks = get_text_chunks(text)
     print(chunks)
@@ -92,12 +103,7 @@ def upload_file():
         "date":effective_date,
         "participants":participants
     }
-    return jsonify(data)
-    
-
-
-
-    
+    return jsonify(data)    
 
 if __name__ == '__main__':
 
