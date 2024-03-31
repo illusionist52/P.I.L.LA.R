@@ -24,7 +24,7 @@ const FileUpload = () => {
       }
 
       alert('File uploaded successfully');
-      const output= await response.text()
+      const output= await response.json()
       console.log(output)
     } catch (error) {
       console.error('Error uploading file:', error);

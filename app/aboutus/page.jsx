@@ -1,5 +1,9 @@
+import FileUpload from "@/components/FileUpload";
+
 const Home = () => {
-  return <h1>ABOUT US</h1>;
+  return <div>
+    <FileUpload/>
+  </div>;
 };
 
 export default Home;
