@@ -2,19 +2,18 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="mx-5 flex flex-col justify-center items-center pt-20 md:pt-28">
-      {/* CTA */}
-      <span className="bg-cyan-100 text-slate-600 rounded-full py-2 px-4 text-center font-semibold">
-        Review your Contracts 3X faster
-      </span>
+    <section className="bg-gray-900 text-white">
+  <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
+    <div className="mx-auto max-w-3xl text-center">
+      <h1
+        className="bg-gradient-to-r mb-10 from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
+      >
+        Understand Lease Agreements.
 
-      {/* HEADING */}
-      <h1 className="text-5xl my-5 font-bold text-center md:text-6xl">
-        Your personal ML contract <br /> negotiator
+        <span className="sm:block"> Explore Relevant Legal Cases: Discover Insights Related to Your Query. </span>
       </h1>
 
-      {/* LIST ITEMS */}
-      <div className="flex justify-start flex-col items-start">
+      <div className="flex justify-center flex-col items-center">
         <div>
           <ul className="flex flex-col md:flex-row justify-center items-start gap-6">
             <div className="flex flex-col items-start gap-y-4 justify-start">
@@ -72,7 +71,7 @@ const Hero = () => {
                   />
                 </svg>
 
-                <span>Get tailored suggestions</span>
+                <span>Get simplified version of your agreement</span>
               </li>
               <li className="flex justify-center items-center gap-2">
                 <svg
@@ -90,7 +89,7 @@ const Hero = () => {
                   />
                 </svg>
 
-                <span>Get data analytics from your contracts</span>
+                <span>Explore Our Extensive Legal Case Dataset</span>
               </li>
             </div>
           </ul>
@@ -102,8 +101,24 @@ const Hero = () => {
         </div>
       </div>
 
-      <img src="/MAIN.png" alt="MAIN" width={1300} className="mt-10" />
+      <div className="mt-8 flex flex-wrap justify-center gap-4">
+        <a
+          className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
+          href="#"
+        >
+          Get Started
+        </a>
+
+        <a
+          className="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
+          href="#"
+        >
+          Learn More
+        </a>
+      </div>
     </div>
+  </div>
+</section>
   );
 };
 

@@ -1,4 +1,8 @@
 import Link from "next/link";
+import {
+  RegisterLink,
+  LoginLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
 
 const Navbar = () => {
   return (
@@ -13,6 +17,10 @@ const Navbar = () => {
         </li>
         <li>About</li>
         <li>Glossary</li>
+        <li>
+          <LoginLink>Sign in</LoginLink>
+          <RegisterLink>Sign up</RegisterLink>
+        </li>
       </ul>
 
       <p className="block md:hidden">
