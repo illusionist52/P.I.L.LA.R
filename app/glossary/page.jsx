@@ -7,6 +7,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function PDFViewer() {
+  const [output, setOutput] = useState(false);
+
   const [numPages, setNumPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1); // start on first page
   const [loading, setLoading] = useState(true);
@@ -55,10 +57,10 @@ export default function PDFViewer() {
   return (
     <>
       <Navbar />
-      <div className="flex py-10 px-4 space-x-4">
+      <div className="flex flex-col justify-center md:flex-row py-10 px-4 space-x-4">
         {/* LEFT SIDE */}
         {file && (
-          <div className="w-[60%] h-[1150px] relative">
+          <div className="mx-auto w-[95%] h-[500px] md:w-[60%] md:h-[1150px]">
             <Nav pageNumber={pageNumber} numPages={numPages} />
             {/* <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium inline-block">
             <span>{pageNumber}</span>
@@ -66,7 +68,10 @@ export default function PDFViewer() {
           </div> */}
 
             {/* <div hidden={loading} className="flex items-center"> */}
-            <div hidden={loading} className="h-full flex justify-center mx-auto">
+            <div
+              hidden={loading}
+              className="h-full flex justify-center mx-auto"
+            >
               <div className={`flex items-center justify-between z-10 px-2`}>
                 <button
                   onClick={goToPreviousPage}
@@ -93,14 +98,13 @@ export default function PDFViewer() {
                 className="-ml-4"
               >
                 <Page
-                  className="border-2 rounded-md p-2 border-black"
+                  className="border-2 rounded-md p-2 border-black w-full"
                   key={pageNumber}
                   pageNumber={pageNumber}
                   renderAnnotationLayer={false}
                   renderTextLayer={false}
                   onLoadSuccess={onPageLoadSuccess}
                   onRenderError={() => setLoading(false)}
-                  width={870}
                 />
               </Document>
             </div>
@@ -108,18 +112,30 @@ export default function PDFViewer() {
           </div>
         )}
         {!file && (
-          <p className="text-black text-3xl font-semibold bg-gray-300/20 w-[60%] h-[1000px] border-2 border-black flex justify-center items-center">
+          <p className="text-black text-3xl font-semibold bg-gray-300/20 w-[95%] md:w-[60%] h-[1000px] border-2 border-black flex justify-center items-center">
             Please select a PDF file
           </p>
         )}
 
         {/* RIGHT SIDE */}
-        <div className="w-[35%] bg-red-400">
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={handleFileChange}
-          />
+        <div className="relative mx-auto border-2 rounded-xl flex flex-col justify-start px-6 py-10 border-black bg-gray-900/90 md:w-[35%]">
+          <p className="text-white text-2xl mb-4">Upload you Document here</p>
+          <form>
+            <input
+              className="text-white text-xl h-[55px] bg-gray-500   rounded-md px-3 py-2 font-medium"
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+            />
+            <button
+              className="text-white text-xl mt-2 w-full bg-blue-500 rounded-md px-3 py-2 font-medium"
+              type="submit"
+            >
+              UPLOAD
+            </button>
+          </form>
+
+          <hr className="text-white my-6" />
         </div>
       </div>
     </>
@@ -149,3 +165,4 @@ function Nav({ pageNumber, numPages }) {
     </nav>
   );
 }
+  
