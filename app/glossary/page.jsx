@@ -1,5 +1,6 @@
 "use client";
 
+import { Navbar } from "@/components";
 import { useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
@@ -53,65 +54,74 @@ export default function PDFViewer() {
 
   return (
     <>
-      <input type="file" accept="application/pdf" onChange={handleFileChange} />
-      {file && (
-        <div className="w-[60%]">
-          <Nav pageNumber={pageNumber} numPages={numPages} />
-          {/* <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium inline-block">
+      <Navbar />
+      <div className="flex py-10 px-4 space-x-4">
+        {/* LEFT SIDE */}
+        {file && (
+          <div className="w-[60%] h-[1150px] relative">
+            <Nav pageNumber={pageNumber} numPages={numPages} />
+            {/* <div className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium inline-block">
             <span>{pageNumber}</span>
             <span className="text-gray-400"> / {numPages}</span>
           </div> */}
 
-          <div
-            hidden={loading}
-            style={{ height: "calc(100vh - 64px)" }}
-            className="flex items-center"
-          >
-            <div
-              className={`flex items-center justify-between w-full absolute z-10 px-2`}
-            >
-              <button
-                onClick={goToPreviousPage}
-                disabled={pageNumber <= 1}
-                className="relative h-[calc(100vh - 64px)] px-2 py-24 text-gray-400 hover:text-black focus:z-20"
-              >
-                <span className="sr-only">Previous</span>
-                LEFT
-              </button>
-              <button
-                onClick={goToNextPage}
-                disabled={pageNumber >= numPages}
-                className="relative h-[calc(100vh - 64px)] px-2 py-24 text-gray-400 hover:text-black focus:z-20"
-              >
-                <span className="sr-only">Next</span>
-                RIGHT
-              </button>
-            </div>
-
-            <div className="h-full flex justify-center mx-auto">
+            {/* <div hidden={loading} className="flex items-center"> */}
+            <div hidden={loading} className="h-full flex justify-center mx-auto">
+              <div className={`flex items-center justify-between z-10 px-2`}>
+                <button
+                  onClick={goToPreviousPage}
+                  disabled={pageNumber <= 1}
+                  className="absolute left-8 bg-gray-300 rounded-md top-20 px-2 text-gray-500 border-2 border-black hover:text-black focus:z-20"
+                >
+                  <span className="sr-only">Previous</span>
+                  LEFT
+                </button>
+                <button
+                  onClick={goToNextPage}
+                  disabled={pageNumber >= numPages}
+                  className="absolute right-8 top-20 bg-gray-300 px-2 rounded-md text-gray-500 border-2 border-black hover:text-black focus:z-20"
+                >
+                  <span className="sr-only bg-black">Next</span>
+                  RIGHT
+                </button>
+              </div>
               <Document
                 file={file}
                 onLoadSuccess={onDocumentLoadSuccess}
                 options={options}
                 renderMode="canvas"
-                className=""
+                className="-ml-4"
               >
                 <Page
-                  className="border-2 border-black"
+                  className="border-2 rounded-md p-2 border-black"
                   key={pageNumber}
                   pageNumber={pageNumber}
                   renderAnnotationLayer={false}
                   renderTextLayer={false}
                   onLoadSuccess={onPageLoadSuccess}
                   onRenderError={() => setLoading(false)}
-                  //   width={Math.max(pageWidth * 0.8, 390)}
-                  width={800}
+                  width={870}
                 />
               </Document>
             </div>
+            {/* </div> */}
           </div>
+        )}
+        {!file && (
+          <p className="text-black text-3xl font-semibold bg-gray-300/20 w-[60%] h-[1000px] border-2 border-black flex justify-center items-center">
+            Please select a PDF file
+          </p>
+        )}
+
+        {/* RIGHT SIDE */}
+        <div className="w-[35%] bg-red-400">
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+          />
         </div>
-      )}
+      </div>
     </>
   );
 }
