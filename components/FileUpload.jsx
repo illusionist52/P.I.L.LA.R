@@ -4,13 +4,15 @@ import React, { useState } from "react";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
-
+  
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleUpload = async () => {
     try {
+      setShowDetails(true)
+      setIsLoading(true)
       const formData = new FormData();
       formData.append("file", file);
 
@@ -29,6 +31,7 @@ const FileUpload = () => {
       alert("File uploaded successfully");
       const output = await response.json();
       console.log(output);
+      setIsLoading(false)
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("Error uploading file");
