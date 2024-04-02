@@ -7,11 +7,10 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      
-        <Hero />
-        <Features />
-        <Footer/>
-     
+      <Hero />
+      <Features />
+      <hr className="border-slate-200" />
+      <Footer />
     </div>
   );
 };
