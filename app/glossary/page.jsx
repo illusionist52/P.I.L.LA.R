@@ -3,19 +3,52 @@
 import { Navbar } from "@/components";
 import PdfDetails from "@/components/pdfDetails";
 import { useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
 import { PulseLoader } from "react-spinners";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 function PDFViewer() {
+  // API ENDPOINT LOGIC
   const [file, setFile] = useState(null);
   const [data, setData] = useState(null);
   const [showDetails, setShowDetails] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   // const [output, setOutput] = useState(false);
 
+  // PDF VIEWING LOGIC
+  const [PDFfile, setPDFFile] = useState(null);
+  const [viewPDF, setViewPDF] = useState(null);
+  // PDF VIEWING LOGIC
+
+  const fileTypes = ["application/pdf"];
   const handleFileChange = (e) => {
+    // API LOGIC IS HERE -
     setFile(e.target.files[0]);
+
+    // PDF VIEWING LOGIC IS HERE -
+    let selectedFile = e.target.files[0];
+    if (selectedFile && fileTypes.includes(selectedFile.type)) {
+      let reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+      reader.onload = (e) => {
+        setPDFFile(e.target.result);
+      };
+    } else {
+      console.log("Please select a correct file"); // toast.success("Please select a correct file");
+      setPDFFile(null);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (PDFfile) {
+      setViewPDF(PDFfile);
+    } else {
+      setViewPDF(null);
+    }
   };
 
   const handleUpload = async () => {
@@ -59,11 +92,16 @@ function PDFViewer() {
       {/* SITE CONTENT */}
       <div className="flex px-4 space-y-4 flex-col justify-center my-10 md:px-0 md:flex-row md:space-x-14 md:space-y-0">
         {/* LEFT PART HERE */}
-        <div className="md:w-[55%] bg-blue-200">
-          <h1>PDF PREVIEW</h1>
-          <div>
-            <h1>hello there</h1>
-          </div>
+        <div className="md:w-[55%] bg-blue-200 border-2 border-blue-400 p-2 h-[50vh] md:h-[90vh] hide-scrollbar overflow-y-auto">
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
+            {viewPDF ? (
+              <Viewer fileUrl={viewPDF} />
+            ) : (
+              <div className="flex justify-center items-center h-[100%] text-4xl font-bold">
+                NO PDF
+              </div>
+            )}
+          </Worker>
         </div>
 
         {/* RIGTH PART HERE */}
@@ -72,7 +110,7 @@ function PDFViewer() {
             Upload Your File here
           </h1>
 
-          <div className="flex flex-col space-y-6">
+          <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
             <input
               type="file"
               onChange={handleFileChange}
@@ -85,7 +123,7 @@ function PDFViewer() {
             >
               Upload
             </button>
-          </div>
+          </form>
 
           <hr className="my-4 border-slate-300" />
           {showDetails && <PdfDetails isLoading={isLoading} data={data} />}
