@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.2.2",
+    "@minchat/react-chat-ui": "^0.16.2",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf-viewer/default-layout": "^3.12.0",
     "@react-pdf-viewer/scroll-mode": "^3.12.0",
