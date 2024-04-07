@@ -17,7 +17,7 @@ function Card({point, index}) {
       </div>
   
       <div
-        className="absolute p-4 opacity-0 transition-opacity group-hover:relative group-hover:opacity-100 sm:p-6 lg:p-8"
+        className="absolute p-4 opacity-0 transition-opacity h-[20vh] overflow-y-auto hide-scrollbar group-hover:relative group-hover:opacity-100 sm:p-6 lg:p-8"
       >
 
   

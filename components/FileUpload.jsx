@@ -4,8 +4,15 @@ import React, { useState } from "react";
 
 const FileUpload = () => {
   const [file, setFile] = useState(null);
-  const [query, setQuery] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [results,setResults] = useState(null)
+  const [chatLog, setChatLog] = useState([
+    {
+      message: "Hello, how can I help you today?",
+      type: "system",
+    }
+   
+  ])
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -37,22 +44,36 @@ const FileUpload = () => {
   //   }
   // };
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
+    
+    const newMessage = { message: inputValue, type: "user" };
+  
+    // Update chatLog with the new user message
+    setChatLog((chatLog)=>{ return [...chatLog,newMessage]});
+  
     try {
-      const response = await fetch('http://127.0.0.1:5000/cases', {
+      const response = await fetch('http://127.0.0.1:5000/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ inputValue })
       });
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch response');
+      }
+  
       const data = await response.json();
-      console.log(data)
-      // setResults(data);
+  
+      // Update chatLog with the system message received from the API
+    setChatLog((chatLog)=>{ return [...chatLog,{ message: data.output_text, type: "system" }]});
+    // setChatLog(chatLog.concat({ message: data.output_text, type: "system" }));
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+  
 
 
   return (
@@ -63,8 +84,28 @@ const FileUpload = () => {
         Upload
       </button> */}
       <form onSubmit={handleSubmit}>
-       <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+       <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
         <button type="submit">Search</button>
+        {chatLog.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`flex ${
+                        message.type === "user"
+                          ? "justify-end"
+                          : "justify-start"
+                      }`}
+                    >
+                      <div
+                        className={`${
+                          message.type === "user"
+                            ? "bg-purple-500"
+                            : "bg-gray-800"
+                        } rounded-lg p-4 text-white max-w-sm`}
+                      >
+                        {message.message}
+                      </div>
+                    </div>
+                  ))}
         </form>
     </div>
   );

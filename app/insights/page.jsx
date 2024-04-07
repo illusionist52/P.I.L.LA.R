@@ -8,6 +8,7 @@ import { Viewer, Worker } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { IoChatboxEllipses } from "react-icons/io5";
+import TypingAnimation from "@/components/TypingAnimation";
 
 function PDFViewer() {
   // API ENDPOINT LOGIC
@@ -15,7 +16,7 @@ function PDFViewer() {
   const [data, setData] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [responseLoading, setResponseLoading ] = useState(false)
   // PDF VIEWING LOGIC
   const [PDFfile, setPDFFile] = useState(null);
   const [viewPDF, setViewPDF] = useState(null);
@@ -28,6 +29,14 @@ function PDFViewer() {
   // const onCloseModal = () => setOpen(false);
 
   const [inputValue, setInputValue] = useState("");
+  const [response, setResponse] = useState(null);
+  const[ chatLog, setChatLog ]= useState([
+    {
+      message: "Hello, how can I help you today?",
+      type: "system",
+    }
+   
+  ]);
 
   const fileTypes = ["application/pdf"];
 
@@ -57,7 +66,32 @@ function PDFViewer() {
       setViewPDF(null);
     }
   };
+  const handleChat = async (e) => {
+    const newMessage = { messsage:inputValue, type: "user"}
+    setChatLog((chatLog)=>{ return [...chatLog,newMessage]});
+          e.preventDefault();
 
+    // setChatLog(...chatLog,newMessage)
+    try {
+      setResponseLoading(true)
+      const response = await fetch('http://127.0.0.1:5000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ inputValue })
+      });
+      console.log(response)
+      const data = await response.json();
+      console.log(data)
+      const chatResponse = {message:data.output_text, type:"system"}
+      setChatLog((chatLog)=>{ return [...chatLog,chatResponse]});
+
+      setResponseLoading(false)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   const handleUpload = async () => {
     try {
       setIsLoading(true);
@@ -83,35 +117,7 @@ function PDFViewer() {
     }
   };
 
-  const chatLog = [
-    {
-      message: "Hello, how can I help you today?",
-      type: "system",
-    },
-    {
-      message: "I need assistance with my account.",
-      type: "user",
-    },
-    {
-      message:
-        "Sure, I can help with that. Could you please provide more details about the issue?",
-      type: "system",
-    },
-    {
-      message: "I'm unable to access my account.",
-      type: "user",
-    },
-    {
-      message:
-        "It seems like there might be a problem with your account's security settings. Let's try resetting your password.",
-      type: "system",
-    },
-    {
-      message:
-        "It seems like there might be a problem with your account's security settings. Let's try resetting your password.",
-      type: "system",
-    },
-  ];
+
 
   return (
     <div className={`${open ? "transparent" : "transparent"} `}>
@@ -138,7 +144,7 @@ function PDFViewer() {
         </div>
 
         {/* RIGHT PART HERE */}
-        <div className="md:w-[35%]  rounded-xl bg-gray-900 text-white border-2 border-blue-700 px-2 py-6 md:px-10">
+        <div className="md:w-[35%]  rounded-xl bg-gray-900 h-[90vh] overflow-y-auto hide-scrollbar text-white border-2 border-blue-700 px-2 py-6 md:px-10">
           <h1 className="text-center font-bold mb-6 text-2xl">
             Upload Your File here
           </h1>
@@ -165,7 +171,7 @@ function PDFViewer() {
         </div>
       </div>
 
-      {/* CHAT BOT ICON */}
+      {/* CHAT BOT ICON */}{ showDetails &&
       <div className="fixed bottom-4 left-4">
         <button
           onClick={onOpenModalToggle}
@@ -207,17 +213,17 @@ function PDFViewer() {
                       </div>
                     </div>
                   ))}
-                  {/* {isLoading && (
+                  {responseLoading && (
                     <div key={chatLog.length} className="flex justify-start">
                       <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm">
                         <TypingAnimation />
                       </div>
                     </div>
-                  )} */}
+                  )}
                 </div>
               </div>
               <form
-                onSubmit={handleSubmit}
+                onSubmit={handleChat}
                 className="flex-none p-6 absolute bottom-0 bg-slate-900 rounded-3xl mr-1"
               >
                 <div className="flex rounded-lg border border-gray-700 bg-gray-800">
@@ -239,7 +245,7 @@ function PDFViewer() {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

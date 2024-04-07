@@ -22,13 +22,13 @@ const page = () => {
               <div>
                 <img
                   className="w-[800px] object-cover rounded-lg sm:rounded-none sm:rounded-l-lg"
-                  src="/usmaan.jpg"
+                  src="/usmaan.png"
                   alt="Bonnie Avatar"
                 />
               </div>
               <div className="p-5">
                 <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  <p>MohdUsmaan Mogal</p>
+                  <p>Mohd Usmaan Mogal</p>
                 </h3>
                 <span className="text-gray-500 dark:text-gray-400">
                   CEO & Web Developer

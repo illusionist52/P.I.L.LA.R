@@ -11,27 +11,27 @@ const Glossary = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(
-     function () {
-      async function fetchCases(){
-      try {
-        setIsLoading(true);
-        const response = await fetch("http://127.0.0.1:5000/cases", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ query }),
-        });
-        const data = await response.json();
-        console.log(data);
-        setCases(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }}
-      if(query.length>2){
-
-        fetchCases()
+    function () {
+      async function fetchCases() {
+        try {
+          setIsLoading(true);
+          const response = await fetch("http://127.0.0.1:5000/cases", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query }),
+          });
+          const data = await response.json();
+          console.log(data);
+          setCases(data);
+          setIsLoading(false);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+      if (query.length > 2) {
+        fetchCases();
       }
     },
     [query]
@@ -84,37 +84,31 @@ const Glossary = () => {
           </div>
         </div>
         {cases === null ? (
-          <div className="grid h-screen place-content-center bg-white px-4">
+          <div className="grid place-content-center bg-white px-4">
             <div className="text-center">
-              <h1 className="text-9xl font-black text-gray-200">404</h1>
+              <h1 className="text-9xl font-black mt-10 text-gray-300">
+                SEARCH YOUR CASES
+              </h1>
 
               <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Type more than 3 letter in the search
               </p>
-
-              <p className="mt-4 text-gray-500">The search Bar is empty</p>
-
-              
             </div>
           </div>
-        ) : (
-          Object.keys(cases).length > 0 ? (
-            
-            Object.values(cases).map((item, index) => (
-              <div key={index}>
-                {/* Render your Case component here */}
-                <Case item={item} />
-              </div>
-            ))
-          ) : (
-            <div className="text-center">
-              <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                No cases found
-              </p>
+        ) : Object.keys(cases).length > 0 ? (
+          Object.values(cases).map((item, index) => (
+            <div key={index}>
+              {/* Render your Case component here */}
+              <Case item={item} />
             </div>
-          )
-        )
-        }
+          ))
+        ) : (
+          <div className="text-center">
+            <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              No cases found
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

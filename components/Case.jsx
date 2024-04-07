@@ -14,7 +14,7 @@ function Case({item}) {
   const words = filteredParagraph.split(/\s+/);
 
   // Take the first 30 words
-  const first30Words = words.slice(0, 50);
+  const first30Words = words.slice(0, 150);
 
   // Join the first 30 words back into a string
   const extractedWords = first30Words.join(' ');
