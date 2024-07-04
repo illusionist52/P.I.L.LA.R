@@ -31,12 +31,12 @@ const page = () => {
                   <p>Mohd Usmaan Mogal</p>
                 </h3>
                 <span className="text-gray-500 dark:text-gray-400">
-                  CEO & Web Developer
+                  Front-end developer & Data analyst
                 </span>
-                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
+                {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
                   Bonnie drives the technical strategy of the flowbite platform
                   and brand.
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
@@ -51,11 +51,8 @@ const page = () => {
                 <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                   <p>Atharva Mulam</p>
                 </h3>
-                <span className="text-gray-500 dark:text-gray-400">CTO</span>
-                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                  Jese drives the technical strategy of the flowbite platform
-                  and brand.
-                </p>
+                <span className="text-gray-500 dark:text-gray-400">Data engineer</span>
+                
               </div>
             </div>
             <div className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
@@ -71,12 +68,9 @@ const page = () => {
                   <p>Nilanchala Panda</p>
                 </h3>
                 <span className="text-gray-500 dark:text-gray-400">
-                  Senior Front-end Developer
+                  Backe-end developer & Data engineer
                 </span>
-                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                  Michael drives the technical strategy of the flowbite platform
-                  and brand.
-                </p>
+                
               </div>
             </div>
             <div className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
@@ -92,12 +86,9 @@ const page = () => {
                   <p>Divesh Punjabi</p>
                 </h3>
                 <span className="text-gray-500 dark:text-gray-400">
-                  Marketing & Sale
+                  UI/UX Designer
                 </span>
-                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                  Lana drives the technical strategy of the flowbite platform
-                  and brand.
-                </p>
+                
               </div>
             </div>
           </div>
