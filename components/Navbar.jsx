@@ -99,7 +99,7 @@ const Navbar = () => {
         <li className="p-4 rounded-xl m-2 cursor-pointer duration-300">
           <LoginLink>Sign in</LoginLink>
         </li>
-        <li className="px-4 py-2 rounded-xl m-2 cursor-pointer duration-300 bg-slate-600">
+        <li className="px-4 py-2 rounded-xl m-2 cursor-pointer duration-300 bg-blue-600">
           <RegisterLink>Sign up</RegisterLink>
         </li>
       </ul>

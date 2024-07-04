@@ -16,7 +16,7 @@ function PDFViewer() {
   const [data, setData] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [responseLoading, setResponseLoading ] = useState(false)
+  const [responseLoading, setResponseLoading] = useState(false);
   // PDF VIEWING LOGIC
   const [PDFfile, setPDFFile] = useState(null);
   const [viewPDF, setViewPDF] = useState(null);
@@ -30,12 +30,11 @@ function PDFViewer() {
 
   const [inputValue, setInputValue] = useState("");
   const [response, setResponse] = useState(null);
-  const[ chatLog, setChatLog ]= useState([
+  const [chatLog, setChatLog] = useState([
     {
       message: "Hello, how can I help you today?",
       type: "system",
-    }
-   
+    },
   ]);
 
   const fileTypes = ["application/pdf"];
@@ -67,29 +66,33 @@ function PDFViewer() {
     }
   };
   const handleChat = async (e) => {
-    const newMessage = { messsage:inputValue, type: "user"}
-    setChatLog((chatLog)=>{ return [...chatLog,newMessage]});
-          e.preventDefault();
+    const newMessage = { messsage: inputValue, type: "user" };
+    setChatLog((chatLog) => {
+      return [...chatLog, newMessage];
+    });
+    e.preventDefault();
 
     // setChatLog(...chatLog,newMessage)
     try {
-      setResponseLoading(true)
-      const response = await fetch('http://127.0.0.1:5000/chat', {
-        method: 'POST',
+      setResponseLoading(true);
+      const response = await fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ inputValue })
+        body: JSON.stringify({ inputValue }),
       });
-      console.log(response)
+      console.log(response);
       const data = await response.json();
-      console.log(data)
-      const chatResponse = {message:data.output_text, type:"system"}
-      setChatLog((chatLog)=>{ return [...chatLog,chatResponse]});
+      console.log(data);
+      const chatResponse = { message: data.output_text, type: "system" };
+      setChatLog((chatLog) => {
+        return [...chatLog, chatResponse];
+      });
 
-      setResponseLoading(false)
+      setResponseLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
   const handleUpload = async () => {
@@ -106,7 +109,7 @@ function PDFViewer() {
       if (!response.ok) {
         throw new Error("Failed to upload file");
       }
-      alert("File uploaded successfully");
+      // alert("File uploaded successfully");
       const output = await response.json();
       console.log(output);
       setData(output);
@@ -116,8 +119,6 @@ function PDFViewer() {
       alert("Error uploading file");
     }
   };
-
-
 
   return (
     <div className={`${open ? "transparent" : "transparent"} `}>
@@ -171,88 +172,90 @@ function PDFViewer() {
         </div>
       </div>
 
-      {/* CHAT BOT ICON */}{ showDetails &&
-      <div className="fixed bottom-4 left-4">
-        <button
-          onClick={onOpenModalToggle}
-          className="bg-slate-900 p-4 rounded-full cursor-pointer"
-        >
-          <IoChatboxEllipses size={32} color="white" />
-        </button>
+      {/* CHAT BOT ICON */}
+      {showDetails && (
+        <div className="fixed bottom-4 left-4">
+          <button
+            onClick={onOpenModalToggle}
+            className="bg-slate-900 p-4 rounded-full cursor-pointer"
+          >
+            <IoChatboxEllipses size={32} color="white" />
+          </button>
 
-        {/* CHAT BOX */}
-        <div
-          open={open}
-          className={`${open ? "block" : "hidden"} absolute bottom-10 left-10`}
-        >
-          <div className="mx-auto -p-10 w-[300px] md:max-w-[700px]">
-            <div className="flex flex-col bg-gray-900 rounded-3xl h-[70vh] w-[100%] border-2 border-white overflow-y-auto hide-scrollbar">
-              <h1 className="text-white text-transparent bg-clip-text text-center py-3 font-bold mt-2 text-3xl">
-                PILLAR
-              </h1>
-              <hr />
-              <div className="flex-grow p-6">
-                <div className="flex flex-col space-y-4 text-white mb-[30%]">
-                  {chatLog.map((message, index) => (
-                    <div
-                      key={index}
-                      className={`flex ${
-                        message.type === "user"
-                          ? "justify-end"
-                          : "justify-start"
-                      }`}
-                    >
+          {/* CHAT BOX */}
+          <div
+            open={open}
+            className={`${
+              open ? "block" : "hidden"
+            } absolute bottom-10 left-10`}
+          >
+            <div className="mx-auto -p-10 w-[300px] md:max-w-[700px]">
+              <div className="flex flex-col bg-gray-900 rounded-3xl h-[70vh] w-[100%] border-2 border-white overflow-y-auto hide-scrollbar">
+                <h1 className="text-white text-transparent bg-clip-text text-center py-3 font-bold mt-2 text-3xl">
+                  PILLAR
+                </h1>
+                <hr />
+                <div className="flex-grow p-6">
+                  <div className="flex flex-col space-y-4 text-white mb-[30%]">
+                    {chatLog.map((message, index) => (
                       <div
-                        className={`${
+                        key={index}
+                        className={`flex ${
                           message.type === "user"
-                            ? "bg-purple-500"
-                            : "bg-gray-800"
-                        } rounded-lg p-4 text-white max-w-sm`}
+                            ? "justify-end"
+                            : "justify-start"
+                        }`}
                       >
-                        {message.message}
+                        <div
+                          className={`${
+                            message.type === "user"
+                              ? "bg-purple-500"
+                              : "bg-gray-800"
+                          } rounded-lg p-4 text-white max-w-sm`}
+                        >
+                          {message.message}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                  {responseLoading && (
-                    <div key={chatLog.length} className="flex justify-start">
-                      <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm">
-                        <TypingAnimation />
+                    ))}
+                    {responseLoading && (
+                      <div key={chatLog.length} className="flex justify-start">
+                        <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm">
+                          <TypingAnimation />
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
+                <form
+                  onSubmit={handleChat}
+                  className="flex-none p-6 absolute bottom-0 bg-slate-900 rounded-3xl mr-1"
+                >
+                  <div className="flex rounded-lg border border-gray-700 bg-gray-800">
+                    <input
+                      type="text"
+                      className="w-[70%] flex-grow px-4 py-2 bg-transparent text-white focus:outline-none"
+                      placeholder="Type your message..."
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      className="bg-purple-500 rounded-lg px-4 py-2 text-white font-semibold focus:outline-none hover:bg-purple-600 transition-colors duration-300"
+                    >
+                      Send
+                    </button>
+                  </div>
+                </form>
               </div>
-              <form
-                onSubmit={handleChat}
-                className="flex-none p-6 absolute bottom-0 bg-slate-900 rounded-3xl mr-1"
-              >
-                <div className="flex rounded-lg border border-gray-700 bg-gray-800">
-                  <input
-                    type="text"
-                    className="w-[70%] flex-grow px-4 py-2 bg-transparent text-white focus:outline-none"
-                    placeholder="Type your message..."
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                  />
-                  <button
-                    type="submit"
-                    className="bg-purple-500 rounded-lg px-4 py-2 text-white font-semibold focus:outline-none hover:bg-purple-600 transition-colors duration-300"
-                  >
-                    Send
-                  </button>
-                </div>
-              </form>
             </div>
           </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 }
 
 export default PDFViewer;
-
-
 
 // TYPING ANIMATION -
 {

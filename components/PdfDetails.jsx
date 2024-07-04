@@ -15,9 +15,9 @@ function PdfDetails({ isLoading, data }) {
 
   const summary = data.summary.output_text;
   const points = summary.split("\n");
-  const filteredPoints = points.filter(str => str.length !== 0);
-  console.log(filteredPoints)
-  console.log(summary)
+  const filteredPoints = points.filter((str) => str.length !== 0);
+  console.log(filteredPoints);
+  console.log(summary);
   console.log(points);
   return (
     <>
@@ -60,11 +60,11 @@ function PdfDetails({ isLoading, data }) {
               {data.rent.output_text}
             </dd>
           </div>
-
-         
         </dl>
         <div className="space-y-8">
-          {filteredPoints.map((point,index)=>(<Card key={index} point={point} index={index} />))}
+          {filteredPoints.map((point, index) => (
+            <Card key={index} point={point} index={index} />
+          ))}
         </div>
       </div>
     </>
