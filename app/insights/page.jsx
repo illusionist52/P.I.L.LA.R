@@ -1,7 +1,7 @@
 "use client";
 
 import { Navbar } from "@/components";
-import PdfDetails from "@/components/pdfDetails";
+import PdfDetails from "@/components/PdfDetails";
 import { useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
