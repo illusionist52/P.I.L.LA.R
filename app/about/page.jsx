@@ -33,10 +33,11 @@ const page = () => {
                 <span className="text-gray-500 dark:text-gray-400">
                   Front-end developer & Data analyst
                 </span>
-                {/* <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                  Bonnie drives the technical strategy of the flowbite platform
-                  and brand.
-                </p> */}
+                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
+                  Built and trained the LLM model and developed a question
+                  anweering bot with it. Preprocessed the dataset used for
+                  semantic search
+                </p>
               </div>
             </div>
             <div className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
@@ -51,8 +52,12 @@ const page = () => {
                 <h3 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                   <p>Atharva Mulam</p>
                 </h3>
-                <span className="text-gray-500 dark:text-gray-400">Data engineer</span>
-                
+                <span className="text-gray-500 dark:text-gray-400">
+                  Data engineer
+                </span>
+                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
+                 Converted all the data in vectors. Analyzed and built the model for semantic search. 
+                </p>
               </div>
             </div>
             <div className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
@@ -70,7 +75,9 @@ const page = () => {
                 <span className="text-gray-500 dark:text-gray-400">
                   Backe-end developer & Data engineer
                 </span>
-                
+                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
+                  Built the APIs used for the project. Enabled user authentication
+                </p>
               </div>
             </div>
             <div className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
@@ -88,7 +95,9 @@ const page = () => {
                 <span className="text-gray-500 dark:text-gray-400">
                   UI/UX Designer
                 </span>
-                
+                <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
+                 Designed the entire UI for the application.
+                </p>
               </div>
             </div>
           </div>
