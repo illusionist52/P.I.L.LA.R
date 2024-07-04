@@ -96,7 +96,7 @@ const page = () => {
                   UI/UX Designer
                 </span>
                 <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                 Designed the entire UI for the application.
+                 Designed the entire UI for the application. Helped with styling components
                 </p>
               </div>
             </div>
