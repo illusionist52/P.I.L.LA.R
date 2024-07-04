@@ -35,8 +35,7 @@ const page = () => {
                 </span>
                 <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
                   Built and trained the LLM model and developed a question
-                  anweering bot with it. Preprocessed the dataset used for
-                  semantic search
+                  anweering bot with it.
                 </p>
               </div>
             </div>
