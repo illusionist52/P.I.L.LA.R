@@ -72,7 +72,7 @@ const page = () => {
                   <p>Nilanchala Panda</p>
                 </h3>
                 <span className="text-gray-500 dark:text-gray-400">
-                  Backe-end developer & Data engineer
+                  Back-end developer & Data engineer
                 </span>
                 <p className="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
                   Built the APIs used for the project. Enabled user authentication
